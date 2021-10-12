@@ -3,6 +3,7 @@ import {
   GET_ARTICLE_REQUEST,
   GET_ARTICLE_SUCCESS,
   GET_ARTICLE_FAIL,
+  PAGINATE_ARTICLE_SUCCESS,
 } from '../constants/articleConstants';
 
 export const getArticlesReducer = (state = {}, action: AnyAction) => {
@@ -18,21 +19,12 @@ export const getArticlesReducer = (state = {}, action: AnyAction) => {
         data: action.payload,
       };
 
-    // case SEARCH_ALBUMS_SUCCESS:
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     success: true,
-    //     data: action.payload,
-    //   };
-
-    // case PAGINATE_ALBUMS_SUCCESS:
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     success: true,
-    //     data: action.payload,
-    //   };
+    case PAGINATE_ARTICLE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        data: action.payload,
+      };
 
     case GET_ARTICLE_FAIL:
       return {
