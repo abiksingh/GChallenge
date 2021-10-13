@@ -66,7 +66,7 @@ export const getSingleArticle = (id: string) => async (dispatch: Dispatch) => {
     });
 
     const { data } = await axios.get(
-      `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=_id:(${id})&api-key=${process.env.REACT_APP_API_KEY}`
+      `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=_id:("nyt://article/${id}")&api-key=${process.env.REACT_APP_API_KEY}`
     );
 
     dispatch({
