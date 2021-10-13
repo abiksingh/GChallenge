@@ -5,7 +5,8 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleArticle } from '../redux/actions/articleActions';
-import Spinner from '../UIHelpers/spinner';
+import Typography from '@mui/material/Typography';
+import moment from 'moment';
 
 const ArticleDetailsScreen = ({ history, match }: any) => {
   const dispatch = useDispatch();
@@ -16,11 +17,9 @@ const ArticleDetailsScreen = ({ history, match }: any) => {
   const { loading, data } = getIndividualArticle;
   console.log(data);
 
-  console.log(match.params.id);
-
   useEffect(() => {
     dispatch(getSingleArticle(match.params.id));
-  }, [dispatch]);
+  }, [dispatch, match]);
 
   return (
     <div>
@@ -29,7 +28,21 @@ const ArticleDetailsScreen = ({ history, match }: any) => {
         <Button onClick={() => history.push(`/`)} variant="contained">
           Back
         </Button>
-        <Link href="#" underline="always">
+        <Typography variant="h4" gutterBottom component="div">
+          {data?.response.docs[0].headline.main}
+        </Typography>
+        {moment
+          .utc(data?.response.docs[0].pub_date?.duration?.start)
+          .local()
+          .format('DD.MM.YYYY')}
+        <Typography variant="body1" gutterBottom>
+          {data?.response.docs[0].lead_paragraph}
+        </Typography>
+        <Link
+          target={'_blank'}
+          href={data?.response.docs[0].web_url}
+          underline="always"
+        >
           {'Read the full article'}
         </Link>
       </Container>

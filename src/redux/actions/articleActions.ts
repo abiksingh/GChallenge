@@ -41,7 +41,7 @@ export const articlesPagination =
       });
 
       const { data } = await axios.get(
-        `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${text}&api-key=${process.env.REACT_APP_API_KEY}&page=${num}`
+        `https://api.nytimes.com/svc/search/v2/articlesearch.json?fl=headline&q=${text}&api-key=${process.env.REACT_APP_API_KEY}&page=${num}`
       );
 
       dispatch({
@@ -66,7 +66,7 @@ export const getSingleArticle = (id: string) => async (dispatch: Dispatch) => {
     });
 
     const { data } = await axios.get(
-      `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=_id:("nyt://article/${id}")&api-key=${process.env.REACT_APP_API_KEY}`
+      `https://api.nytimes.com/svc/search/v2/articlesearch.json?fl=web_url%2C%20lead_paragraph%2C%20pub_date%2C%20headline&fq=_id:("nyt://article/${id}")&api-key=${process.env.REACT_APP_API_KEY}`
     );
 
     dispatch({
