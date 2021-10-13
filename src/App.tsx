@@ -7,7 +7,11 @@ const App = () => {
   return (
     <Router>
       <Route path="/" component={ArticleScreen} exact />
-      <Route path="/:id" component={ArticleDetailsScreen} exact />
+      <Route
+        path="/article/nyt://article/:id"
+        component={ArticleDetailsScreen}
+        exact
+      />
     </Router>
   );
 };

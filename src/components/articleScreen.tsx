@@ -73,12 +73,13 @@ const ArticleScreen = ({ history }: any) => {
                 variant="h6"
                 sx={typographyStyle}
                 component="div"
-                onClick={() => history.push(`/${article._id}`)}
+                onClick={() => history.push(`/article/${article._id}`)}
               >
                 {article.headline.main}
               </Typography>
             ))
           )}
+
           <Stack spacing={2}>
             <Pagination
               count={100}

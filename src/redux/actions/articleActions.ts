@@ -5,6 +5,7 @@ import {
   GET_ARTICLE_SUCCESS,
   GET_ARTICLE_FAIL,
   PAGINATE_ARTICLE_SUCCESS,
+  GET_SINGLE_ARTICLE_SUCCESS,
 } from '../constants/articleConstants';
 
 export const getAllArticles = (text: string) => async (dispatch: Dispatch) => {
@@ -57,3 +58,28 @@ export const articlesPagination =
       });
     }
   };
+
+export const getSingleArticle = (id: string) => async (dispatch: Dispatch) => {
+  try {
+    dispatch({
+      type: GET_ARTICLE_REQUEST,
+    });
+
+    const { data } = await axios.get(
+      `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=_id:(${id})&api-key=${process.env.REACT_APP_API_KEY}`
+    );
+
+    dispatch({
+      type: GET_SINGLE_ARTICLE_SUCCESS,
+      payload: data,
+    });
+  } catch (error: any) {
+    dispatch({
+      type: GET_ARTICLE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
