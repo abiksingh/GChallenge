@@ -65,7 +65,7 @@ const ArticleScreen = ({ history }: RouteComponentProps) => {
   };
 
   const onKeyDownHandler = (e: React.KeyboardEvent) => {
-    if (e.keyCode === 13) {
+    if (e.code === 'Enter') {
       dispatch(getAllArticles(text));
     }
   };
