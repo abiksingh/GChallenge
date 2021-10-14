@@ -15,7 +15,7 @@ export const getAllArticles = (text: string) => async (dispatch: Dispatch) => {
     });
 
     const { data } = await axios.get(
-      `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${text}&api-key=${process.env.REACT_APP_API_KEY}`
+      `https://api.nytimes.com/svc/search/v2/articlesearch.json?fl=headline%2C%20_id&q=${text}&api-key=${process.env.REACT_APP_API_KEY}`
     );
 
     dispatch({
@@ -41,7 +41,7 @@ export const articlesPagination =
       });
 
       const { data } = await axios.get(
-        `https://api.nytimes.com/svc/search/v2/articlesearch.json?fl=headline&q=${text}&api-key=${process.env.REACT_APP_API_KEY}&page=${num}`
+        `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${text}&api-key=${process.env.REACT_APP_API_KEY}&page=${num}`
       );
 
       dispatch({

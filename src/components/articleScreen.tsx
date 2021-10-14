@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 import {
   getAllArticles,
   articlesPagination,
 } from '../redux/actions/articleActions';
-import Header from '../UIHelpers/header';
-import Container from '@mui/material/Container';
+
 import {
   ArticleScreenWrapper,
   typographyStyle,
@@ -13,8 +13,7 @@ import {
   ArticlesWrapper,
   paperStyle,
 } from '../UIHelpers/styles';
-import Typography from '@mui/material/Typography';
-import Spinner from '../UIHelpers/spinner';
+
 import {
   Stack,
   Pagination,
@@ -23,15 +22,33 @@ import {
   ListItem,
   ListItemText,
   Divider,
+  InputBase,
+  Paper,
+  Typography,
+  Container,
 } from '@mui/material';
+import Spinner from '../UIHelpers/spinner';
+import Header from '../UIHelpers/header';
 import SearchIcon from '@mui/icons-material/Search';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
 
-const ArticleScreen = ({ history }: any) => {
+const ArticleScreen = ({ history }: RouteComponentProps) => {
   const dispatch = useDispatch();
 
-  const getArticles = useSelector((state: any) => state.getArticles);
+  type RootState = {
+    getArticles: {
+      data: any;
+      loading: boolean;
+    };
+  };
+
+  type Article = {
+    _id: string;
+    headline: {
+      main: string;
+    };
+  };
+
+  const getArticles = useSelector((state: RootState) => state.getArticles);
   const { loading, data } = getArticles;
 
   const [text, setText] = useState('');
@@ -47,14 +64,14 @@ const ArticleScreen = ({ history }: any) => {
     dispatch(articlesPagination(input.textContent!, text));
   };
 
-  const onKeyDownHandler = (e: any) => {
+  const onKeyDownHandler = (e: React.KeyboardEvent) => {
     if (e.keyCode === 13) {
       dispatch(getAllArticles(text));
     }
   };
 
   return (
-    <div>
+    <>
       <Header />
       <Container maxWidth="xl">
         <ArticleScreenWrapper>
@@ -96,7 +113,7 @@ const ArticleScreen = ({ history }: any) => {
             {loading ? (
               <Spinner />
             ) : (
-              data?.response.docs.map((article: any) => (
+              data?.response.docs.map((article: Article) => (
                 <List key={article._id}>
                   <ListItem button>
                     <ListItemText
@@ -123,7 +140,7 @@ const ArticleScreen = ({ history }: any) => {
           </Stack>
         </ArticleScreenWrapper>
       </Container>
-    </div>
+    </>
   );
 };
 

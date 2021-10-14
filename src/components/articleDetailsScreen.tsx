@@ -1,21 +1,32 @@
 import React, { useEffect } from 'react';
 import Header from '../UIHelpers/header';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleArticle } from '../redux/actions/articleActions';
-import Typography from '@mui/material/Typography';
 import moment from 'moment';
 import { ArticleDetailsScreenWrapper } from '../UIHelpers/styles';
+import { Typography, Link, Container } from '@mui/material';
 
-const ArticleDetailsScreen = ({ history, match }: any) => {
+interface MatchParams {
+  match: {
+    params: {
+      id: string;
+    };
+  };
+}
+
+const ArticleDetailsScreen = ({ match }: MatchParams) => {
   const dispatch = useDispatch();
 
+  type RootState = {
+    getIndividualArticle: {
+      data: any;
+    };
+  };
+
   const getIndividualArticle = useSelector(
-    (state: any) => state.getIndividualArticle
+    (state: RootState) => state.getIndividualArticle
   );
-  const { loading, data } = getIndividualArticle;
+  const { data } = getIndividualArticle;
   console.log(data);
 
   useEffect(() => {
@@ -23,7 +34,7 @@ const ArticleDetailsScreen = ({ history, match }: any) => {
   }, [dispatch, match]);
 
   return (
-    <div>
+    <>
       <Header />
       <Container maxWidth="xl">
         <ArticleDetailsScreenWrapper>
@@ -69,7 +80,7 @@ const ArticleDetailsScreen = ({ history, match }: any) => {
           </Link>
         </ArticleDetailsScreenWrapper>
       </Container>
-    </div>
+    </>
   );
 };
 
