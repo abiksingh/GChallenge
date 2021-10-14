@@ -11,3 +11,11 @@ export const ArticleScreenWrapper = styled('div')({
 export const typographyStyle = {
   fontWeight: 'bold',
 };
+
+export const ArticleDetailsScreenWrapper = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'flex-start',
+  flexDirection: 'column',
+  marginTop: '5vh',
+});
