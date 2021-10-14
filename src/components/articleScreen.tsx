@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import {
@@ -54,6 +54,10 @@ const ArticleScreen = ({ history }: RouteComponentProps) => {
   const [text, setText] = useState('');
 
   console.log(data);
+
+  useEffect(() => {
+    dispatch(getAllArticles('election'));
+  }, []);
 
   const searchButton = () => {
     return dispatch(getAllArticles(text));
@@ -130,13 +134,11 @@ const ArticleScreen = ({ history }: RouteComponentProps) => {
           </ArticlesWrapper>
 
           <Stack sx={paginationStyle} spacing={2}>
-            {data && (
-              <Pagination
-                count={100}
-                onClick={handlePagination}
-                shape="rounded"
-              />
-            )}
+            <Pagination
+              count={100}
+              onClick={handlePagination}
+              shape="rounded"
+            />
           </Stack>
         </ArticleScreenWrapper>
       </Container>
